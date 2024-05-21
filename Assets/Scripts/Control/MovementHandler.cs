@@ -1,22 +1,33 @@
+using System;
 using UnityEngine;
 
 namespace Scripts.Control
 {
-    public class MovementHandler
+    public sealed class MovementHandler : MonoBehaviour
     {
-        private IInput _input;
+        public event Action<float> OnDirectionChanged;
 
-        public MovementHandler(IInput input)
+        private Camera _mainCamera;
+
+        private void Start()
         {
-            _input = input;
-            Debug.Log(_input.GetType());
-
-            _input.ClickDown += OnClickDown;
+            _mainCamera = Camera.main;
         }
 
-        private void OnClickDown(Vector3 position)
+        private void Update()
         {
-            Debug.Log(position);
+            if (Input.GetMouseButtonDown(0))
+            {
+                Handle—lick();
+            }
         }
+
+        private void Handle—lick()
+        {
+            Vector3 worldPosition = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
+            Vector2 targetPosition = worldPosition;
+
+            OnDirectionChanged?.Invoke(targetPosition.x);
+        }    
     }
 }
