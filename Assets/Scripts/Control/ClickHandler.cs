@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace Scripts.Control
 {
-    public sealed class MovementHandler : MonoBehaviour
+    public sealed class ClickHandler : MonoBehaviour
     {
         public event Action<float> OnDirectionChanged;
 
