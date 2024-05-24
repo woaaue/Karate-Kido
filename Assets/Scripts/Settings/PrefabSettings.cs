@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Collections.Generic;
 
 [CreateAssetMenu(fileName = "PrefabSettings", menuName = "Karate Tupo/PrefabSettings", order = 1)]
-public class PrefabSettings : ScriptableObject
+public sealed class PrefabSettings : ScriptableObject
 {
     [SerializeField] List<PopupBase> _popups;
 
