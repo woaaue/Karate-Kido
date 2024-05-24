@@ -24,14 +24,12 @@ public sealed class LevelSystem
 
     public LevelData GetData()
     {
-        var data = new LevelData
+        return new LevelData
         {
             Level = _currentLevel,
             CurrentExperience = _currentExperience,
             ExperienceNextLevel = GetExperienceNextLevel(_currentLevel).ExpNextLvl
         };
-
-        return data;
     }
 
     public void AddValue(int value)
@@ -40,7 +38,7 @@ public sealed class LevelSystem
 
         _currentExperience += value;
 
-        if (_currentExperience > ExpNewlvl.ExpNextLvl)
+        if (_currentExperience >= ExpNewlvl.ExpNextLvl)
         {
             EditLevel(ExpNewlvl);
         }
