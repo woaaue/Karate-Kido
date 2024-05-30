@@ -1,24 +1,24 @@
 using UnityEngine;
 using System.Collections.Generic;
 
-public class PoolMono<T> where T : MonoBehaviour
+public abstract class PoolMono<T> : MonoBehaviour where T : MonoBehaviour
 {
-    public T Prefab { get; }
-    public Transform Container { get; }
+    private T _prefab;
+    private Transform _container;
 
-    private List<T> pool;
+    private List<T> _pool;
 
-    public PoolMono(T prefab, Transform container, int count)
+    private protected void Initialize(T prefab, Transform container, int count)
     { 
-        Prefab = prefab;
-        Container = container;
+        _prefab = prefab;
+        _container = container;
 
         CreatePool(count);
     }
 
     private void CreatePool(int poolCount)
     {
-        pool = new List<T>();
+        _pool = new List<T>();
 
         for (int i = 0; i < poolCount; ++i)
         {
@@ -28,15 +28,15 @@ public class PoolMono<T> where T : MonoBehaviour
 
     private void CreateObject(bool isActive = false)
     {
-        var createdObject = Object.Instantiate(Prefab, Container, false);
+        var createdObject = Object.Instantiate(_prefab, _container, false);
         
         createdObject.gameObject.SetActive(isActive);
-        pool.Add(createdObject);
+        _pool.Add(createdObject);
     }
 
     private bool HasFreeElement(out T element)
     {
-        foreach (var item in pool)
+        foreach (var item in _pool)
         {
             if (!item.gameObject.activeInHierarchy)
             {
