@@ -1,3 +1,4 @@
+using Zenject;
 using UnityEngine;
 
 public enum ETreeType : sbyte
@@ -9,8 +10,35 @@ public enum ETreeType : sbyte
 
 public class TreeBase : MonoBehaviour
 {
-    private protected ETreeType _type;
+    [SerializeField] private TreeAnimator _animator;
 
-    public virtual void SetupType (ETreeType type) => _type = type;
+    public ETreeType Type { get; private set; }
+
+    private GameService _gameService;
+
+    [Inject]
+    public void Construct(GameService gameService) => _gameService = gameService;
+
+    private void OnEnable()
+    {
+        _animator.OnAnimationCompleted += AnimationComplete;
+        //_gameService.OnTreeAnimationRequested += PlayAnimation;
+    }
+
+    private void OnDisable()
+    {
+        _animator.OnAnimationCompleted -= AnimationComplete;
+        //_gameService.OnTreeAnimationRequested -= PlayAnimation;
+    }
+
+    public virtual void SetupType (ETreeType type) => Type = type;
     public virtual void SetupTransform(float x, float y) => gameObject.transform.position = new Vector2(x, y);
+
+    private void PlayAnimation(Tree tree, float direction)
+    {
+        if (tree == this)
+            _animator.FlyTree(direction);
+    }
+
+    private void AnimationComplete() => gameObject.SetActive(false);
 }

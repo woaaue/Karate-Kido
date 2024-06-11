@@ -1,3 +1,4 @@
+using Zenject;
 using UnityEngine;
 
 public sealed class Tree : TreeBase
@@ -10,28 +11,21 @@ public sealed class Tree : TreeBase
         EditSettings();
     }
 
-    private void ResetSettings()
-    {
-        gameObject.transform.rotation = Quaternion.identity;
-    }
-
-    private void LeftSettings()
-    {
-        gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 180));
-    }
+    private void ResetSettings() => gameObject.transform.rotation = Quaternion.identity;
+    private void LeftSettings() => gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 180));
 
     private void EditSettings()
     {
-        if (_type == ETreeType.None)
+        if (Type == ETreeType.None)
         {
             _branch.gameObject.SetActive(false);
             ResetSettings();
         }
-        else if (_type == ETreeType.Left)
+        else if (Type == ETreeType.Left)
         {
             LeftSettings();
         }
-        else if (_type == ETreeType.Right) 
+        else if (Type == ETreeType.Right) 
         {
             _branch.gameObject.SetActive(true);
             ResetSettings();
