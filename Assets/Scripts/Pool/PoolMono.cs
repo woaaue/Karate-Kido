@@ -6,7 +6,7 @@ public abstract class PoolMono<T> : MonoBehaviour where T : MonoBehaviour
     private T _prefab;
     private Transform _container;
 
-    private List<T> _pool;
+    private protected List<T> _pool;
 
     private protected void Initialize(T prefab, Transform container, int count)
     { 

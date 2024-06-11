@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public sealed class PoolTree : PoolMono<Tree>
 {
@@ -6,8 +7,10 @@ public sealed class PoolTree : PoolMono<Tree>
     [SerializeField] private int _count;
     [SerializeField] private Transform _parent;
 
-    private void Start()
+    private void Start() => Initialize(_prefab, _parent, _count);
+
+    public List<Tree> GetPool()
     {
-        Initialize(_prefab, _parent, _count);
+        return _pool;
     }
 }
