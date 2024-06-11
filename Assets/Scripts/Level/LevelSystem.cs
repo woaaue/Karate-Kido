@@ -1,5 +1,4 @@
 using System;
-using Zenject;
 
 [Serializable]
 public class LevelData
@@ -15,12 +14,6 @@ public sealed class LevelSystem
 
     private int _currentLevel = 1;
     private int _currentExperience = 0;
-
-    [Inject]
-    public void Construct()
-    {
-
-    }
 
     public LevelData GetData()
     {

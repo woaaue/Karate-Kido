@@ -1,5 +1,4 @@
 using System;
-using Zenject;
 using UnityEngine;
 
 public class GameService : MonoBehaviour
@@ -13,13 +12,6 @@ public class GameService : MonoBehaviour
 
     private Score _scoreSystem;
     private LevelSystem _levelSystem;
-
-    [Inject]
-    public void Construct(Score score, LevelSystem levelSystem)
-    {
-        _scoreSystem = score;
-        _levelSystem = levelSystem;
-    }
 
     private void Start()
     {

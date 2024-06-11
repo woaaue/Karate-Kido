@@ -1,5 +1,4 @@
 using System;
-using Zenject;
 
 [Serializable]
 public class ScoreData
@@ -12,12 +11,6 @@ public class Score
 {
     private int _currentScore;
     private int _bestScore;
-
-    [Inject]
-    public void Construct()
-    {
-
-    }
 
     public ScoreData GetData()
     {

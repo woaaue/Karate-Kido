@@ -7,7 +7,7 @@ public sealed class PoolTree : PoolMono<Tree>
     [SerializeField] private int _count;
     [SerializeField] private Transform _parent;
 
-    private void Awake() => Initialize(_treePrefab, _parent, _count);
+    private void Start() => Initialize(_treePrefab, _parent, _count);
 
     public List<Tree> GetPool()
     {
