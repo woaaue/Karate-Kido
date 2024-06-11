@@ -4,9 +4,9 @@ public sealed class Tree : TreeBase
 {
     [SerializeField] private GameObject _branch;
 
-    public override void Setup(ETreeType type)
+    public override void SetupType(ETreeType type)
     {
-        base.Setup(type);
+        base.SetupType(type);
         EditSettings();
     }
 
