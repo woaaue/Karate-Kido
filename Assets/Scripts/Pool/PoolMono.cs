@@ -57,4 +57,12 @@ public abstract class PoolMono<T> : MonoBehaviour where T : MonoBehaviour
 
         throw new System.Exception($"There is no free element type {typeof(T)}");
     }
+
+    public void MoveToLast(T element)
+    {
+        if (_pool.Remove(element))
+        {
+            _pool.Add(element);
+        }
+    }
 }
