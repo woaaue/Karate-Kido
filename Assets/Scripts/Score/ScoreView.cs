@@ -13,11 +13,13 @@ public sealed class ScoreView : MonoBehaviour
         _scoreService.OnScoreChanged += ChangeScore;
         ChangeScore();
     }
-
     private void OnDestroy() => _scoreService.OnScoreChanged -= ChangeScore;
 
     [Inject]
-    public void Construct(ScoreService scoreService) => _scoreService = scoreService;
+    public void Construct(ScoreService scoreService)
+    {
+        _scoreService = scoreService;
+    }
 
     private void ChangeScore() => _scoreText.text = _scoreService.GetData().Score.ToString();
 }

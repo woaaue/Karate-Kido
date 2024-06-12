@@ -10,10 +10,10 @@ public sealed class ScoreService : MonoBehaviour
     private Score _score;
     private GameService _gameService;
 
+    private void Awake() => _score = new Score();
+
     private void Start()
     {
-        _score = new Score();
-
         _gameService.OnPlayerHit += AddValue;
         _gameService.OnPlayerDied += ChangeBestScore;
     }
