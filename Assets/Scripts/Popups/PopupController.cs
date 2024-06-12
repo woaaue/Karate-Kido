@@ -15,13 +15,14 @@ public sealed class PopupController : MonoBehaviour
             var instance = Instantiate(popupPrefab, _popupParent, false);
             instance.Setup(settings);
             _currentPopup = instance;
+            _currentPopup.OnPopupClosed += HidePopup;
             _background.SetActive(true);
         }
     }
 
-    public void HidePopup()
+    private void HidePopup()
     {
-        _currentPopup.Close();
+        _currentPopup.OnPopupClosed -= HidePopup;
         _currentPopup = null;
         _background.SetActive(false);
     }

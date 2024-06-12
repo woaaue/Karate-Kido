@@ -1,9 +1,12 @@
+using System;
 using UnityEngine;
 using JetBrains.Annotations;
 
 public class PopupBase : MonoBehaviour
 {
     [SerializeField] private PopupAnimator _animator;
+
+    public event Action OnPopupClosed;
 
     private void Start()
     {
@@ -18,6 +21,7 @@ public class PopupBase : MonoBehaviour
 
     private void Destroy()
     {
+        OnPopupClosed?.Invoke();
         Destroy(gameObject);
     }
 }
