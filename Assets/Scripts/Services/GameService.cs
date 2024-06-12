@@ -8,10 +8,7 @@ public class GameService : MonoBehaviour
 
     public event Action OnPlayerHit;
     public event Action OnPlayerDied;
-    public event Action<Tree, float> OnTreeAnimationRequested;
-
-    private Score _scoreSystem;
-    private LevelSystem _levelSystem;
+    public event Action<string, float> OnTreeAnimationRequested;
 
     private void Start()
     {
@@ -27,9 +24,16 @@ public class GameService : MonoBehaviour
     {
         if (!VerifyDeath(playerPosition))
         {
-            OnTreeAnimationRequested?.Invoke(_treeService.GetCurrentTree(), playerPosition.x);
             OnPlayerHit?.Invoke();
+            OnTreeAnimationRequested?.Invoke(_treeService.GetCurrentTree().Id, playerPosition.x);
             _treeService.EditQueue();
+            _treeService.ShiftPool();
+        }
+        
+        if (VerifyDeath(playerPosition))
+        {
+            OnPlayerDied?.Invoke();
+            Debug.Log("Player died");
         }
     }
 
@@ -37,15 +41,14 @@ public class GameService : MonoBehaviour
     {
         var tree = _treeService.GetCurrentTree();
 
-        if (playerPosition == Vector2.left && tree.Type == ETreeType.Left || 
-            playerPosition == Vector2.right && tree.Type == ETreeType.Right || 
-            tree.Type == ETreeType.None)
+        if (playerPosition == Vector2.left && tree.Type == ETreeType.Left 
+            || playerPosition == Vector2.right && tree.Type == ETreeType.Right)
         {
-            return false;
+            return true;
         }
         else 
         {
-            return true;
+            return false;
         }
     }
 }
