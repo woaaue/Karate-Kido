@@ -5,6 +5,7 @@ public class GameService : MonoBehaviour
 {
     [SerializeField] private Player _player;
     [SerializeField] private TreeService _treeService;
+    [SerializeField] private PopupController _popupController;
 
     public event Action OnPlayerHit;
     public event Action OnPlayerDied;
@@ -33,7 +34,7 @@ public class GameService : MonoBehaviour
         if (VerifyDeath(playerPosition))
         {
             OnPlayerDied?.Invoke();
-            Debug.Log("Player died");
+            ShowEndGamePopup("You died");
         }
     }
 
@@ -50,5 +51,15 @@ public class GameService : MonoBehaviour
         {
             return false;
         }
+    }
+
+    private void ShowEndGamePopup(string message)
+    {
+        var settings = new EndGamePopupSettings
+        {
+            Action = message,
+        };
+
+        _popupController.ShowPopup(settings);
     }
 }
