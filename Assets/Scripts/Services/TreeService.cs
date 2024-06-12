@@ -17,9 +17,23 @@ public sealed class TreeService : MonoBehaviour
         _lastTreeTypes = new List<ETreeType>();
 
         Init();
+
+        var i = _treePool.GetPool();
     }
 
     public void EditQueue() => _treePool.MoveToLast(_treePool.GetPool().First());
+
+    public void ShiftPool()
+    {
+        _treePool.GetPool()
+            .Where(tree => tree.isActiveAndEnabled)
+            .ToList()
+            .ForEach(tree =>
+            {
+                tree.SetupTransform(tree.transform.position.x, 
+                    tree.transform.position.y - tree.transform.localScale.y);
+            });
+    }
 
     public Tree GetCurrentTree()
     {
@@ -39,7 +53,7 @@ public sealed class TreeService : MonoBehaviour
     {
         var treeObject = _treePool.GetFreeElement();
 
-        if (_lastPosition == null)
+        if (_lastPosition == Vector2.zero && _treeOnScene < 1)
         {
             treeObject.SetupTransform(0,0);
             _lastPosition = treeObject.transform.position;
