@@ -16,7 +16,7 @@ public sealed class PrefabSettings : ScriptableObject
         }
         catch (Exception e) 
         {
-            Debug.LogError(typeof(T));
+            Debug.LogError($"There is no popup with these settings {typeof(T)}");
             throw;
         }
     }
