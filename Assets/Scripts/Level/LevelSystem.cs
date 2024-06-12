@@ -25,6 +25,12 @@ public sealed class LevelSystem
         };
     }
 
+    public void SetLevelData(LevelData data)
+    {
+        _currentLevel = data.Level;
+        _currentExperience = data.CurrentExperience;
+    }
+
     public void AddValue(int value)
     {
         var ExpNewlvl = GetExperienceNextLevel(_currentLevel);
