@@ -9,6 +9,8 @@ public class ScoreData
 
 public class Score
 {
+    public event Action OnBestScoreChanged;
+
     private int _currentScore;
     private int _bestScore;
 
@@ -21,16 +23,20 @@ public class Score
         };
     }
 
-    private void AddValue(int value)
+    public void AddValue(int value)
     {
         _currentScore += value;
     }
 
-    private void ChangeBestScore()
+    public bool ChangeBestScore()
     {
         if (_bestScore < _currentScore) 
         { 
             _bestScore = _currentScore;
+            OnBestScoreChanged?.Invoke();
+            return true;
         }
+
+        return false;
     }
 }
