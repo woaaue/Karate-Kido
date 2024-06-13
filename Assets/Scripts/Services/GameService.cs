@@ -55,11 +55,9 @@ public class GameService : MonoBehaviour
 
     private void ShowEndGamePopup(string message)
     {
-        var settings = new EndGamePopupSettings
+        _popupController.ShowPopup(new EndGamePopupSettings
         {
             Action = message,
-        };
-
-        _popupController.ShowPopup(settings);
+        });
     }
 }

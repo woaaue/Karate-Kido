@@ -12,7 +12,7 @@ public sealed class PrefabSettings : ScriptableObject
     {
         try
         {
-            return (Popup<T>)_popups.First(x => x is T);
+            return (Popup<T>)_popups.First(x => x is Popup<T>);
         }
         catch (Exception e) 
         {

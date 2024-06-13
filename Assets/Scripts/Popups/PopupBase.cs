@@ -8,16 +8,10 @@ public class PopupBase : MonoBehaviour
 
     public event Action OnPopupClosed;
 
-    private void Start()
-    {
-        _animator.Show();
-    }
+    private void Start() => _animator.Show();
 
     [UsedImplicitly]
-    public void Close()
-    {
-        _animator.Hide(Destroy);
-    }
+    public void Close() => _animator.Hide(Destroy);
 
     private void Destroy()
     {
