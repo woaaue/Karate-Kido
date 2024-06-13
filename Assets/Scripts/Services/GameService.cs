@@ -11,15 +11,8 @@ public class GameService : MonoBehaviour
     public event Action OnPlayerDied;
     public event Action<string, float> OnTreeAnimationRequested;
 
-    private void Start()
-    {
-        _player.OnPlayerMoved += WentPlayer;
-    }
-
-    private void OnDestroy()
-    {
-        _player.OnPlayerMoved -= WentPlayer;
-    }
+    private void Start() => _player.OnPlayerMoved += WentPlayer;
+    private void OnDestroy() => _player.OnPlayerMoved -= WentPlayer;
 
     private void WentPlayer(Vector2 playerPosition)
     {
@@ -41,15 +34,12 @@ public class GameService : MonoBehaviour
     {
         var tree = _treeService.GetCurrentTree();
 
-        if (playerPosition == Vector2.left && tree.Type == ETreeType.Left 
-            || playerPosition == Vector2.right && tree.Type == ETreeType.Right)
-        {
-            return true;
-        }
-        else 
-        {
-            return false;
-        }
+        bool isDeath = (playerPosition == Vector2.left && tree.Type == ETreeType.Left
+            || playerPosition == Vector2.right && tree.Type == ETreeType.Right) 
+            ? true 
+            : false;
+        
+        return isDeath;
     }
 
     private void ShowEndGamePopup(string message)
