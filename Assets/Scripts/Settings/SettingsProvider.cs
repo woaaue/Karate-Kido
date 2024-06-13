@@ -12,9 +12,7 @@ public sealed class SettingsProvider : ScriptableObject
     public static T Get<T>() where T : ScriptableObject
     {
         if (_settingsProvider == null)
-        {
             _settingsProvider = Resources.Load<SettingsProvider>("SettingsProvider");
-        }
 
         return (T)_settingsProvider._settingsList.First(x => x is T);
     }

@@ -35,9 +35,7 @@ public class GameService : MonoBehaviour
         var tree = _treeService.GetCurrentTree();
 
         bool isDeath = (playerPosition == Vector2.left && tree.Type == ETreeType.Left
-            || playerPosition == Vector2.right && tree.Type == ETreeType.Right) 
-            ? true 
-            : false;
+            || playerPosition == Vector2.right && tree.Type == ETreeType.Right);
         
         return isDeath;
     }
