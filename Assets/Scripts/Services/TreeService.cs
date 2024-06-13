@@ -26,6 +26,11 @@ public sealed class TreeService : MonoBehaviour
         _treePool.MoveToLast(_treePool.GetPool().First());
     }
 
+    public Tree GetCurrentTree()
+    {
+        return _treePool.GetPool().First();
+    }
+
     private void ShiftPool()
     {
         _treePool.GetPool()
@@ -39,12 +44,6 @@ public sealed class TreeService : MonoBehaviour
                 _lastPosition = tree.transform.position;
             });
     }
-
-    public Tree GetCurrentTree()
-    {
-        return _treePool.GetPool().First();
-    }
-
 
     private void Init(int value)
     {
