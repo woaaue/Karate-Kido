@@ -15,6 +15,7 @@ public class TreeBase : MonoBehaviour
 
     public string Id {  get; private set; }
     public ETreeType Type { get; private set; }
+    public bool IsActiveAnim { get; private set; }
 
     private GameService _gameService;
 
@@ -36,6 +37,7 @@ public class TreeBase : MonoBehaviour
 
     private void OnDisable()
     {
+        IsActiveAnim = false;
         _animator.OnAnimationCompleted -= AnimationComplete;
         _gameService.OnTreeAnimationRequested -= PlayAnimation;
     }
@@ -46,7 +48,10 @@ public class TreeBase : MonoBehaviour
     private void PlayAnimation(string id, float direction)
     {
         if (id == Id)
+        {
+            IsActiveAnim = true;
             _animator.FlyTree(direction);
+        }
     }
 
     private void AnimationComplete() => gameObject.SetActive(false);

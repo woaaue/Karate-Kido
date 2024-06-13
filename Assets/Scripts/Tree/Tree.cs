@@ -1,4 +1,3 @@
-using Zenject;
 using UnityEngine;
 
 public sealed class Tree : TreeBase
@@ -23,6 +22,7 @@ public sealed class Tree : TreeBase
         }
         else if (Type == ETreeType.Left)
         {
+            _branch.gameObject.SetActive(true);
             LeftSettings();
         }
         else if (Type == ETreeType.Right) 

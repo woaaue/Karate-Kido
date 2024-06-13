@@ -34,5 +34,4 @@ public sealed class TreeAnimator : MonoBehaviour
                 callback?.Invoke();
             });
     }
-
 }
