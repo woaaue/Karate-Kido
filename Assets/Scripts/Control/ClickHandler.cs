@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using JetBrains.Annotations;
 
 namespace Scripts.Control
 {
@@ -9,20 +10,10 @@ namespace Scripts.Control
 
         private Camera _mainCamera;
 
-        private void Start()
-        {
-            _mainCamera = Camera.main;
-        }
+        private void Start() => _mainCamera = Camera.main;
 
-        private void Update()
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                Handle—lick();
-            }
-        }
-
-        private void Handle—lick()
+        [UsedImplicitly]
+        public void HandleClick()
         {
             Vector3 worldPosition = _mainCamera.ScreenToWorldPoint(Input.mousePosition);
             Vector2 targetPosition = worldPosition;
