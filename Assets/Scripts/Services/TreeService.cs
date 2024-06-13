@@ -16,22 +16,27 @@ public sealed class TreeService : MonoBehaviour
     {
         _lastTreeTypes = new List<ETreeType>();
 
-        Init();
-
-        var i = _treePool.GetPool();
+        Init(_treeSceneStart);
     }
 
-    public void EditQueue() => _treePool.MoveToLast(_treePool.GetPool().First());
+    public void EditQueue()
+    {
+        ShiftPool();
+        Init(1);
+        _treePool.MoveToLast(_treePool.GetPool().First());
+    }
 
-    public void ShiftPool()
+    private void ShiftPool()
     {
         _treePool.GetPool()
-            .Where(tree => tree.isActiveAndEnabled)
+            .Where(tree => tree.isActiveAndEnabled && !tree.IsActiveAnim)
             .ToList()
             .ForEach(tree =>
             {
                 tree.SetupTransform(tree.transform.position.x, 
                     tree.transform.position.y - tree.transform.localScale.y);
+
+                _lastPosition = tree.transform.position;
             });
     }
 
@@ -41,9 +46,9 @@ public sealed class TreeService : MonoBehaviour
     }
 
 
-    private void Init()
+    private void Init(int value)
     {
-        for (int counter = 0; counter < _treeSceneStart; ++counter)
+        for (int counter = 0; counter < value; ++counter)
         {
             ActiveObject();
         }

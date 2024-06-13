@@ -5,7 +5,6 @@ using UnityEngine;
 public sealed class ScoreService : MonoBehaviour
 {   
     public event Action OnScoreChanged;
-    public event Action OnBestScoreChanged;
 
     private Score _score;
     private GameService _gameService;
@@ -38,9 +37,5 @@ public sealed class ScoreService : MonoBehaviour
         OnScoreChanged?.Invoke();
     }
 
-    private void ChangeBestScore()
-    {
-        if (_score.ChangeBestScore())
-            OnBestScoreChanged?.Invoke();
-    }
+    private void ChangeBestScore() => _score.ChangeBestScore();
 }

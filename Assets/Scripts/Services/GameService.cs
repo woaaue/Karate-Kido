@@ -28,7 +28,6 @@ public class GameService : MonoBehaviour
             OnPlayerHit?.Invoke();
             OnTreeAnimationRequested?.Invoke(_treeService.GetCurrentTree().Id, playerPosition.x);
             _treeService.EditQueue();
-            _treeService.ShiftPool();
         }
         
         if (VerifyDeath(playerPosition))
@@ -57,7 +56,7 @@ public class GameService : MonoBehaviour
     {
         _popupController.ShowPopup(new EndGamePopupSettings
         {
-            Action = message,
+            InfoText = message,
         });
     }
 }
