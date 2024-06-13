@@ -602,7 +602,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _treePrefab: {fileID: -1638686480348536956, guid: 1d6b83bdb441bb346af882e9127c9cb6, type: 3}
-  _count: 20
+  _count: 50
   _parent: {fileID: 556559824}
 --- !u!1 &604713652
 GameObject:
