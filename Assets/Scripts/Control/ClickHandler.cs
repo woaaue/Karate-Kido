@@ -19,6 +19,6 @@ namespace Scripts.Control
             Vector2 targetPosition = worldPosition;
 
             OnDirectionChanged?.Invoke(targetPosition.x);
-        }    
+        }
     }
 }

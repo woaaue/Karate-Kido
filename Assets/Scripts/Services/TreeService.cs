@@ -26,6 +26,13 @@ public sealed class TreeService : MonoBehaviour
         _treePool.MoveToLast(_treePool.GetPool().First());
     }
 
+    public void ScipTree()
+    {
+        _treePool.GetPool().First().gameObject.SetActive(false);
+        _treePool.MoveToLast(_treePool.GetPool().First());
+        ShiftPool();
+    }
+
     public Tree GetCurrentTree()
     {
         return _treePool.GetPool().First();

@@ -1,24 +1,21 @@
 using TMPro;
-using Zenject;
 using UnityEngine;
 
 public sealed class ScoreView : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI _scoreText;
-
-    private ScoreService _scoreService;
+    [SerializeField] private ScoreService _scoreService;
 
     private void Start()
     {
         _scoreService.OnScoreChanged += ChangeScore;
-        ChangeScore();
+        _scoreService.OnScoreReseted += ChangeScore;
     }
-    private void OnDestroy() => _scoreService.OnScoreChanged -= ChangeScore;
 
-    [Inject]
-    public void Construct(ScoreService scoreService)
+    private void OnDestroy()
     {
-        _scoreService = scoreService;
+        _scoreService.OnScoreChanged -= ChangeScore;
+        _scoreService.OnScoreReseted -= ChangeScore;
     }
 
     private void ChangeScore() => _scoreText.text = _scoreService.GetData().Score.ToString();

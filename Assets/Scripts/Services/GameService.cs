@@ -5,10 +5,10 @@ public class GameService : MonoBehaviour
 {
     [SerializeField] private Player _player;
     [SerializeField] private TreeService _treeService;
-    [SerializeField] private PopupController _popupController;
 
     public event Action OnPlayerHit;
     public event Action OnPlayerDied;
+    public event Action<string> OnGameEnded;
     public event Action<string, float> OnTreeAnimationRequested;
 
     private void Start() => _player.OnPlayerMoved += WentPlayer;
@@ -26,7 +26,7 @@ public class GameService : MonoBehaviour
         if (VerifyDeath(playerPosition))
         {
             OnPlayerDied?.Invoke();
-            ShowEndGamePopup("You died");
+            OnGameEnded?.Invoke("Player died");
         }
     }
 
@@ -38,13 +38,5 @@ public class GameService : MonoBehaviour
             || playerPosition == Vector2.right && tree.Type == ETreeType.Right);
         
         return isDeath;
-    }
-
-    private void ShowEndGamePopup(string message)
-    {
-        _popupController.ShowPopup(new EndGamePopupSettings
-        {
-            InfoText = message,
-        });
     }
 }
