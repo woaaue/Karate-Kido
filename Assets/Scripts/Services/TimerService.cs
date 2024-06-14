@@ -1,61 +1,43 @@
 using System;
 using Zenject;
 using UnityEngine;
+using Scripts.Control;
+using System.Threading;
 
 public sealed class TimerService : MonoBehaviour
 {
     [SerializeField] private int _timeInSeconds;
     [SerializeField] private int _timePerImpact;
-    [SerializeField] private PopupController _popupController;
+    [SerializeField] private ClickHandler _clickHandler;
 
+    public int Time => _timeInSeconds;
     public event Action OnTimerStarted;
+    public event Action<string> OnUpTimed;
     public event Action<double> OnGetTimed;
 
     private CountdownTimer _countdownTimer;
     [Inject] private GameService _gameService;
 
-    private void Start()
-    {
-        StartTimer();
-        _gameService.OnPlayerHit += AddTime;
-    }
+    private void Start() => _gameService.OnPlayerHit += AddTime;
+    private void OnDestroy() => StopTimer();
 
-    private void OnDestroy()
-    {
-        _countdownTimer.OnTimerStoped -= UpTime;
-        _countdownTimer.OnGetTimed -= GetTimeInSec;
-    }
-
-    private void StartTimer()
+    public void StartTimer()
     {
         _countdownTimer = new CountdownTimer(_timeInSeconds);
 
         _countdownTimer.OnGetTimed += GetTimeInSec;
         _countdownTimer.OnTimerStoped += UpTime;
-
-        Debug.Log($"Time {_timeInSeconds}");
+        Debug.Log("Timer started");
         OnTimerStarted?.Invoke();
     }
 
-    private void GetTimeInSec(double time)
+    public void StopTimer()
     {
-        Debug.Log($"Remaining time {time}");
-        OnGetTimed?.Invoke(time);
+        _countdownTimer.Stop();
+        _countdownTimer.Dispose();
     }
 
+    private void UpTime() => OnUpTimed?.Invoke("Time's up");
     private void AddTime() => _countdownTimer.AddTime(_timePerImpact);
-
-    private void UpTime()
-    {
-        Debug.Log("Time's up");
-        ShowEndGamePopup("Time's up");
-    }
-
-    private void ShowEndGamePopup(string message)
-    {
-        _popupController.ShowPopup(new EndGamePopupSettings
-        {
-            InfoText = message,
-        });
-    }
+    private void GetTimeInSec(double time) => OnGetTimed?.Invoke(time);
 }

@@ -1,5 +1,7 @@
 using System;
 using System.Timers;
+using System.Threading;
+using Timer = System.Timers.Timer;
 
 public sealed class CountdownTimer
 {
@@ -10,6 +12,8 @@ public sealed class CountdownTimer
     private int _duration;
     private int _ñonstDuration;
     private DateTime _startTime;
+    private SynchronizationContext _context;
+
 
     public CountdownTimer(int durationSeconds)
     {
@@ -20,6 +24,8 @@ public sealed class CountdownTimer
         _timer.Elapsed += TimedEvent;
         _timer.AutoReset = true;
 
+        _context = SynchronizationContext.Current;
+
         Start();
     }
 
@@ -29,19 +35,20 @@ public sealed class CountdownTimer
             _duration += value;
     }
 
+    public void Stop() => _timer.Stop();
+
+    public void Dispose()
+    {
+        _timer.Elapsed -= TimedEvent;
+        _timer.Dispose();
+    }
+
     private void Start()
     {
         _startTime = DateTime.Now;
         _timer.Start();
     }
 
-    private void Stop() => _timer.Stop();
-
-    private void Dispose()
-    {
-        _timer.Elapsed -= TimedEvent;
-        _timer.Dispose();
-    }
 
     private double GetTime()
     {
@@ -59,7 +66,7 @@ public sealed class CountdownTimer
         if (remainingTime <= 0) 
         {
             Stop();
-            OnTimerStoped?.Invoke();
+            _context.Post(actionEvent => OnTimerStoped?.Invoke(), null);
             Dispose();
         }
     }
