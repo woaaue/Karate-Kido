@@ -9,7 +9,6 @@ public sealed class PopupAnimator : MonoBehaviour
 
     public void Hide(Action callback = null)
     {
-        _canvasGroup.alpha = 0;
         _canvasGroup
             .DOFade(0, _duration)
             .OnKill(() =>
