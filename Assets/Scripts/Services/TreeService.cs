@@ -31,6 +31,7 @@ public sealed class TreeService : MonoBehaviour
         _treePool.GetPool().First().gameObject.SetActive(false);
         _treePool.MoveToLast(_treePool.GetPool().First());
         ShiftPool();
+        Init(1);
     }
 
     public Tree GetCurrentTree()
