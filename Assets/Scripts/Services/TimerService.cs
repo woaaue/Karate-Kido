@@ -36,14 +36,12 @@ public sealed class TimerService : MonoBehaviour
         Subscribe();
         _isActive = true;
         OnTimerStarted?.Invoke();
-        Debug.Log("Timer started");
     }
 
     public void StopTimer()
     {
         _isActive = false;
         UnSubcribe();
-        Debug.Log("Timer stoped");
     }
 
     private void Subscribe()
