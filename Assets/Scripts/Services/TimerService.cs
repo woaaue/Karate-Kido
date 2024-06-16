@@ -1,43 +1,64 @@
 using System;
 using Zenject;
 using UnityEngine;
-using Scripts.Control;
-using System.Threading;
 
 public sealed class TimerService : MonoBehaviour
 {
     [SerializeField] private int _timeInSeconds;
     [SerializeField] private int _timePerImpact;
-    [SerializeField] private ClickHandler _clickHandler;
 
-    public int Time => _timeInSeconds;
+    public int StartTime => _timeInSeconds;
     public event Action OnTimerStarted;
     public event Action<string> OnUpTimed;
-    public event Action<double> OnGetTimed;
+    public event Action<float> OnTimerValueChanged;
 
+    private bool _isActive;
     private CountdownTimer _countdownTimer;
     [Inject] private GameService _gameService;
 
-    private void Start() => _gameService.OnPlayerHit += AddTime;
-    private void OnDestroy() => StopTimer();
+    private void Start()
+    {
+        _gameService.OnPlayerHit += AddTime;
+    }
+
+    private void Update()
+    {
+        if (_isActive)
+        {
+            var deltaTime = Time.deltaTime;
+            _countdownTimer.StartTimer(deltaTime);
+        }
+    }
 
     public void StartTimer()
     {
-        _countdownTimer = new CountdownTimer(_timeInSeconds);
-
-        _countdownTimer.OnGetTimed += GetTimeInSec;
-        _countdownTimer.OnTimerStoped += UpTime;
-        Debug.Log("Timer started");
+        _countdownTimer = new CountdownTimer(_timeInSeconds, _timePerImpact);
+        Subscribe();
+        _isActive = true;
         OnTimerStarted?.Invoke();
+        Debug.Log("Timer started");
     }
 
     public void StopTimer()
     {
-        _countdownTimer.Stop();
-        _countdownTimer.Dispose();
+        _isActive = false;
+        UnSubcribe();
+        Debug.Log("Timer stoped");
     }
 
+    private void Subscribe()
+    {
+        _countdownTimer.OnTimerFinished += UpTime;
+        _countdownTimer.OnValueChanged += GetTimed;
+    }
+
+    private void UnSubcribe()
+    {
+        _countdownTimer.OnTimerFinished -= UpTime;
+        _countdownTimer.OnValueChanged -= GetTimed;
+    }
+
+    private void AddTime() => _countdownTimer.AddValue();
     private void UpTime() => OnUpTimed?.Invoke("Time's up");
-    private void AddTime() => _countdownTimer.AddTime(_timePerImpact);
-    private void GetTimeInSec(double time) => OnGetTimed?.Invoke(time);
+    private void GetTimed(float value) => OnTimerValueChanged?.Invoke(value);
 }

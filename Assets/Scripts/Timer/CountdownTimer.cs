@@ -1,73 +1,38 @@
 using System;
-using System.Timers;
-using System.Threading;
-using Timer = System.Timers.Timer;
 
 public sealed class CountdownTimer
 {
-    public event Action OnTimerStoped;
-    public event Action<double> OnGetTimed;
+    public event Action OnTimerFinished;
+    public event Action<float> OnValueChanged;
 
-    private Timer _timer;
-    private int _duration;
-    private int _ñonstDuration;
-    private DateTime _startTime;
-    private SynchronizationContext _context;
+    private float _addValue;
+    private float _startTime;
+    private float _currentTime;
 
-
-    public CountdownTimer(int durationSeconds)
+    public CountdownTimer (float startTime, float addTime)
     {
-        _ñonstDuration = durationSeconds;
-        _duration = _ñonstDuration;
-        _timer = new Timer(200);
-
-        _timer.Elapsed += TimedEvent;
-        _timer.AutoReset = true;
-
-        _context = SynchronizationContext.Current;
-
-        Start();
+        _startTime = startTime;
+        _addValue = addTime;
+        _currentTime = _startTime;
     }
 
-    public void AddTime(int value)
+    public void StartTimer(float deltaTime)
     {
-        if (GetTime() + value < _ñonstDuration)
-            _duration += value;
-    }
+        _currentTime -= deltaTime;
+        OnValueChanged?.Invoke(_currentTime); 
 
-    public void Stop() => _timer.Stop();
-
-    public void Dispose()
-    {
-        _timer.Elapsed -= TimedEvent;
-        _timer.Dispose();
-    }
-
-    private void Start()
-    {
-        _startTime = DateTime.Now;
-        _timer.Start();
-    }
-
-
-    private double GetTime()
-    {
-        var timeSeconds = (DateTime.Now - _startTime).TotalSeconds;
-
-        return Math.Max(0, _duration - timeSeconds);
-    }
-
-    private void TimedEvent(Object source, ElapsedEventArgs e)
-    {
-        var remainingTime = GetTime();
-
-        OnGetTimed?.Invoke(remainingTime);
-
-        if (remainingTime <= 0) 
+        if (_currentTime <= 0) 
         {
-            Stop();
-            _context.Post(actionEvent => OnTimerStoped?.Invoke(), null);
-            Dispose();
+            _currentTime = 0;
+            OnTimerFinished?.Invoke();
         }
+    }
+
+    public void AddValue()
+    {
+        if (_currentTime + _addValue > _startTime)
+            _currentTime = _startTime;
+        else
+            _currentTime += _addValue;
     }
 }
