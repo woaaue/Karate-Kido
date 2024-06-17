@@ -29,6 +29,8 @@ public class TreeBase : MonoBehaviour
 
     private void OnEnable()
     {
+        transform.localScale = Vector3.one;
+
         _animator.OnAnimationCompleted += AnimationComplete;
         
         if (_gameService != null)
