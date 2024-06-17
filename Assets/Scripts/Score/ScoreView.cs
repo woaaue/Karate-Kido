@@ -18,5 +18,5 @@ public sealed class ScoreView : MonoBehaviour
         _scoreService.OnScoreReseted -= ChangeScore;
     }
 
-    private void ChangeScore() => _scoreText.text = _scoreService.GetData().Score.ToString();
+    private void ChangeScore() => _scoreText.text = _scoreService.GetScore().ToString();
 }
