@@ -19,7 +19,7 @@ public sealed class GameConditionService : MonoBehaviour
     [UsedImplicitly]
     public void RestartGame()
     {
-        _treeService.ScipTree();
+        _treeService.SkipTree();
         _scoreService.ResetScore();
         _timerService.StartTimer();
     }

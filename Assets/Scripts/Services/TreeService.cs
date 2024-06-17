@@ -22,21 +22,27 @@ public sealed class TreeService : MonoBehaviour
     public void EditQueue()
     {
         ShiftPool();
-        Init(1);
+        Init();
         _treePool.MoveToLast(_treePool.GetPool().First());
-    }
-
-    public void ScipTree()
-    {
-        _treePool.GetPool().First().gameObject.SetActive(false);
-        _treePool.MoveToLast(_treePool.GetPool().First());
-        ShiftPool();
-        Init(1);
     }
 
     public Tree GetCurrentTree()
     {
         return _treePool.GetPool().First();
+    }
+
+    public void SkipTree()
+    {
+        var tree = _treePool.GetPool().First();
+
+        while (tree.Type != ETreeType.None)
+        {
+            tree.gameObject.SetActive(false);
+            _treePool.MoveToLast(tree);
+            ShiftPool();
+            tree = _treePool.GetPool().First();
+            Init();
+        }
     }
 
     private void ShiftPool()
@@ -53,7 +59,7 @@ public sealed class TreeService : MonoBehaviour
             });
     }
 
-    private void Init(int value)
+    private void Init(int value = 1)
     {
         for (int counter = 0; counter < value; ++counter)
         {
