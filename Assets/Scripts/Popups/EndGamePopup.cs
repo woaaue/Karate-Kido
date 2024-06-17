@@ -23,7 +23,7 @@ public sealed class EndGamePopup : Popup<EndGamePopupSettings>
 
     private void GetResult()
     {
-        _bestResult.text = _scoreService.GetData().BestScore.ToString();
+        _bestResult.text = _scoreService.GetBestScore().ToString();
     }
 }
 
