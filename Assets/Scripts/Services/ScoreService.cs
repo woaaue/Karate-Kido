@@ -23,6 +23,15 @@ public sealed class ScoreService : MonoBehaviour
         _gameService.OnPlayerHit += ChangeBestScore;
     }
 
+    private void OnApplicationPause(bool pause)
+    {
+        if (pause)
+        {
+            ChangeBestScore();
+            SaveData();
+        }
+    }
+
     private void OnDestroy()
     {
         _gameService.OnPlayerHit -= AddValue;

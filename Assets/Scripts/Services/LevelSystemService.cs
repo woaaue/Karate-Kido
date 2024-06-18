@@ -20,12 +20,18 @@ public sealed class LevelSystemService : MonoBehaviour
         _levelSystem.OnLevelUp += ChangeLevel;
     }
 
+    private void OnApplicationPause(bool pause)
+    {
+        if (pause)
+            SaveData();
+    }
+
     private void OnDestroy()
     {
-        SaveData();
-
         _gameService.OnPlayerHit -= AddValue;
         _levelSystem.OnLevelUp -= ChangeLevel;
+
+        SaveData();
     }
 
     [Inject]
