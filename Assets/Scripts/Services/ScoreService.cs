@@ -4,11 +4,14 @@ using UnityEngine;
 
 public sealed class ScoreService : MonoBehaviour
 {
+    [SerializeField] private int _countAccrualsScore;
+
     public event Action OnScoreChanged;
     public event Action OnScoreReseted;
 
     private Score _score;
     private GameService _gameService;
+    private LevelSystemService _levelService;
 
     private void Start()
     {
@@ -29,7 +32,11 @@ public sealed class ScoreService : MonoBehaviour
     }
 
     [Inject]
-    public void Construct(GameService gameService) => _gameService = gameService;
+    public void Construct(GameService gameService, LevelSystemService levelService)
+    {
+        _gameService = gameService;
+        _levelService = levelService;
+    }
 
     public int GetScore()
     {
@@ -49,7 +56,11 @@ public sealed class ScoreService : MonoBehaviour
 
     private void AddValue()
     {
-        _score.AddValue();
+        float currentLevel = _levelService.GetData().CurrentLevel;
+        float coefficient = currentLevel + (currentLevel / 10);
+        var accrualsScore = Convert.ToInt32(_countAccrualsScore * coefficient);
+
+        _score.AddValue(accrualsScore);
         OnScoreChanged?.Invoke();
     }
 
