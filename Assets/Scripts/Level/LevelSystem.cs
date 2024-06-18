@@ -3,7 +3,7 @@ using System;
 [Serializable]
 public class LevelData
 {
-    public int Level;
+    public int CurrentLevel;
     public int CurrentExperience;
     public int ExperienceNextLevel;
 }
@@ -19,7 +19,7 @@ public sealed class LevelSystem
     {
         return new LevelData
         {
-            Level = _currentLevel,
+            CurrentLevel = _currentLevel,
             CurrentExperience = _currentExperience,
             ExperienceNextLevel = GetExperienceNextLevel(_currentLevel).ExpNextLvl
         };
@@ -27,8 +27,15 @@ public sealed class LevelSystem
 
     public void SetLevelData(LevelData data)
     {
-        _currentLevel = data.Level;
-        _currentExperience = data.CurrentExperience;
+        if (data == null) 
+        {
+            GetData();
+        }
+        else 
+        {
+            _currentLevel = data.CurrentLevel;
+            _currentExperience = data.CurrentExperience;
+        }
     }
 
     public void AddValue(int value)
@@ -39,19 +46,19 @@ public sealed class LevelSystem
 
         if (_currentExperience >= ExpNewlvl.ExpNextLvl)
         {
-            EditLevel(ExpNewlvl);
+            EditLevel(GetExperienceNextLevel(_currentLevel + 1));
         }
     }
 
     private Level GetExperienceNextLevel(int level)
     {
-        return SettingsProvider.Get<LevelInfo>().GetLevel(_currentLevel);
+        return SettingsProvider.Get<LevelInfo>().GetLevel(level);
     }
 
     private void EditLevel(Level newLevel)
     {
         _currentLevel = newLevel.Number;
-        _currentExperience = newLevel.ExpNextLvl - _currentExperience;
+        _currentExperience -= GetExperienceNextLevel(_currentLevel - 1).ExpNextLvl;
 
         OnLevelUp?.Invoke();
     }
