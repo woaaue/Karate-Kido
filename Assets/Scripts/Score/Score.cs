@@ -20,7 +20,14 @@ public class Score
             _bestScore = _score;
     }
 
+    public void SetData(ScoreData data)
+    {
+        if (data != null)
+            _bestScore = data.BestScore;
+        else
+            _bestScore = 0;
+    }
+
     public void RemoveScore() => _score = 0;
     public void AddValue(int value = 1) => _score += value;
-    public void SetData(ScoreData data) => _bestScore = data.BestScore;
 }
