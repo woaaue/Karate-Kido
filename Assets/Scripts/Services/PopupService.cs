@@ -14,6 +14,12 @@ public sealed class PopupService : MonoBehaviour
         _gameService.OnGameEnded += ShowEndGamePopup;
     }
 
+    private void OnDestroy()
+    {
+        _timerService.OnUpTimed -= ShowEndGamePopup;
+        _gameService.OnGameEnded -= ShowEndGamePopup;
+    }
+
     private void ShowStartGamePopup()
     {
         _popupController.ShowPopup(new StartGamePopupSettings());
