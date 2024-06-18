@@ -773,6 +773,70 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _timeBar: {fileID: 1051809910}
   _timerService: {fileID: 3559304}
+--- !u!1 &781488190
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 781488191}
+  - component: {fileID: 781488192}
+  - component: {fileID: 781488193}
+  m_Layer: 0
+  m_Name: LevelService
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &781488191
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 781488190}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 987801421}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &781488192
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 781488190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af1f633e7312fee40a8a5dc415cd2023, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _countAccrualsExperience: 5
+--- !u!114 &781488193
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 781488190}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0166d8ff8d905b048b2448179e1f5d11, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _components:
+  - {fileID: 781488192}
+  _identifier: 
+  _useSceneContext: 0
+  _context: {fileID: 0}
+  _bindType: 0
 --- !u!1 &793116165
 GameObject:
   m_ObjectHideFlags: 0
@@ -1100,6 +1164,7 @@ Transform:
   - {fileID: 1948177249}
   - {fileID: 3559303}
   - {fileID: 1947534206}
+  - {fileID: 781488191}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1051809908
@@ -1985,6 +2050,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d34e5159c7b492c409faef8e6175373c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _countAccrualsScore: 10
 --- !u!114 &1948177251
 MonoBehaviour:
   m_ObjectHideFlags: 0
