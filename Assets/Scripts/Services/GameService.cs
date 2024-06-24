@@ -6,8 +6,8 @@ public class GameService : MonoBehaviour
     [SerializeField] private Player _player;
     [SerializeField] private TreeService _treeService;
 
-    public event Action OnPlayerHit;
     public event Action OnPlayerDied;
+    public event Action OnPlayerHited;
     public event Action<string> OnGameEnded;
     public event Action<string, float> OnTreeAnimationRequested;
 
@@ -18,7 +18,7 @@ public class GameService : MonoBehaviour
     {
         if (!VerifyDeath(playerPosition))
         {
-            OnPlayerHit?.Invoke();
+            OnPlayerHited?.Invoke();
             OnTreeAnimationRequested?.Invoke(_treeService.GetCurrentTree().Id, playerPosition.x);
             _treeService.EditQueue();
         }

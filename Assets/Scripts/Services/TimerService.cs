@@ -18,7 +18,7 @@ public sealed class TimerService : MonoBehaviour
 
     private void Start()
     {
-        _gameService.OnPlayerHit += AddTime;
+        _gameService.OnPlayerHited += AddTime;
     }
 
     private void Update()

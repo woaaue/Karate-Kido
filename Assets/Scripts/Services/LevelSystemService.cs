@@ -28,7 +28,7 @@ public sealed class LevelSystemService : MonoBehaviour
 
     private void OnDestroy()
     {
-        _gameService.OnPlayerHit -= AddValue;
+        _gameService.OnPlayerHited -= AddValue;
         _levelSystem.OnLevelUp -= ChangeLevel;
 
         SaveData();
@@ -38,7 +38,7 @@ public sealed class LevelSystemService : MonoBehaviour
     public void Construct(GameService gameService)
     {
         _gameService = gameService;
-        _gameService.OnPlayerHit += AddValue;
+        _gameService.OnPlayerHited += AddValue;
     }
 
     public LevelData GetData()
