@@ -10,8 +10,19 @@ public sealed class Tree : TreeBase
         EditSettings();
     }
 
-    private void ResetSettings() => gameObject.transform.rotation = Quaternion.identity;
-    private void LeftSettings() => gameObject.transform.rotation = Quaternion.Euler(new Vector3(0, 0, 180));
+    private void ResetSettings()
+    {
+        _branch.transform.rotation = Quaternion.identity;
+
+        if (_branch.transform.position.x < 0)
+            _branch.transform.position = new Vector2(-_branch.transform.position.x, _branch.transform.position.y);
+    }
+    
+    private void LeftSettings()
+    {
+        _branch.transform.rotation = Quaternion.Euler(new Vector3(0, 180));
+        _branch.transform.position = new Vector2(-_branch.transform.position.x, _branch.transform.position.y);
+    }
 
     private void EditSettings()
     {
@@ -23,6 +34,7 @@ public sealed class Tree : TreeBase
         else if (Type == ETreeType.Left)
         {
             _branch.gameObject.SetActive(true);
+            ResetSettings();
             LeftSettings();
         }
         else if (Type == ETreeType.Right) 
