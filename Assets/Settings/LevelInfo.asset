@@ -33,3 +33,7 @@ MonoBehaviour:
     ExpNextLvl: 1074
   - Number: 10
     ExpNextLvl: 1288
+  - Number: 11
+    ExpNextLvl: 1500
+  - Number: 12
+    ExpNextLvl: 2000
