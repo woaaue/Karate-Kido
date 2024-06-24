@@ -32,9 +32,16 @@ public sealed class Player : MonoBehaviour
 
     private void ChangePosition(float xPosition)
     {
-        gameObject.transform.position = 
-            xPosition < 0 ? 
-            Vector2.left : Vector2.right;
+        if (xPosition < 0)
+        {
+            transform.position = new Vector3(-1.3f, 0);
+            transform.rotation = new Quaternion(0, -180, 0, 0);
+        }
+        else
+        {
+            transform.position = new Vector3(1.3f, 0);
+            transform.rotation = Quaternion.identity;
+        }
 
         OnPlayerMoved?.Invoke(gameObject.transform.position);
     }
