@@ -1,9 +1,11 @@
 using System;
+using UnityEngine.Experimental.Rendering;
 
 [Serializable]
 public class LevelData
 {
     public int CurrentLevel;
+    public float Coefficient;
     public int CurrentExperience;
     public int ExperienceNextLevel;
 }
@@ -13,6 +15,7 @@ public sealed class LevelSystem
     public event Action OnLevelUp;
 
     private int _currentLevel = 1;
+    private float _coefficient = 1f;
     private int _currentExperience = 0;
 
     public LevelData GetData()
@@ -20,6 +23,7 @@ public sealed class LevelSystem
         return new LevelData
         {
             CurrentLevel = _currentLevel,
+            Coefficient = GetCoefficient(),
             CurrentExperience = _currentExperience,
             ExperienceNextLevel = GetExperienceNextLevel(_currentLevel).ExpNextLvl
         };
@@ -33,6 +37,7 @@ public sealed class LevelSystem
         }
         else 
         {
+            _coefficient = data.Coefficient;
             _currentLevel = data.CurrentLevel;
             _currentExperience = data.CurrentExperience;
         }
@@ -55,9 +60,15 @@ public sealed class LevelSystem
         return SettingsProvider.Get<LevelInfo>().GetLevel(level);
     }
 
+    private float GetCoefficient()
+    {
+        return SettingsProvider.Get<LevelInfo>().GetLevel(_currentLevel).Coefficient;
+    }
+
     private void EditLevel(Level newLevel)
     {
         _currentLevel = newLevel.Number;
+        _coefficient = newLevel.Coefficient;
         _currentExperience -= GetExperienceNextLevel(_currentLevel - 1).ExpNextLvl;
 
         OnLevelUp?.Invoke();
