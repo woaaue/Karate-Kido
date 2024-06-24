@@ -65,8 +65,7 @@ public sealed class ScoreService : MonoBehaviour
 
     private void AddValue()
     {
-        float currentLevel = _levelService.GetData().CurrentLevel;
-        float coefficient = currentLevel + (currentLevel / 10);
+        float coefficient = _levelService.GetData().Coefficient;
         var accrualsScore = Convert.ToInt32(_countAccrualsScore * coefficient);
 
         _score.AddValue(accrualsScore);

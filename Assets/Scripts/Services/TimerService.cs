@@ -4,10 +4,10 @@ using UnityEngine;
 
 public sealed class TimerService : MonoBehaviour
 {
-    [SerializeField] private int _timeInSeconds;
-    [SerializeField] private int _timePerImpact;
+    [SerializeField] private float _timeInSeconds;
+    [SerializeField] private float _timePerImpact;
 
-    public int StartTime => _timeInSeconds;
+    public float StartTime => _timeInSeconds;
     public event Action OnTimerStarted;
     public event Action<string> OnUpTimed;
     public event Action<float> OnTimerValueChanged;
