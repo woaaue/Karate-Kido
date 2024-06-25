@@ -23,6 +23,14 @@ MonoBehaviour:
     m_Key: BestScoreText
     m_Metadata:
       m_Items: []
+  - m_Id: 26374479486976
+    m_Key: TimeEndText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 26534869671936
+    m_Key: PlayerDieText
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
