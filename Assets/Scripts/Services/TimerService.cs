@@ -57,6 +57,6 @@ public sealed class TimerService : MonoBehaviour
     }
 
     private void AddTime() => _countdownTimer.AddValue();
-    private void UpTime() => OnUpTimed?.Invoke("Time's up");
+    private void UpTime() => OnUpTimed?.Invoke("TimeEndText");
     private void GetTimed(float value) => OnTimerValueChanged?.Invoke(value);
 }

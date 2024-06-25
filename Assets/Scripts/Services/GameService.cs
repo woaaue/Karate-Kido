@@ -26,7 +26,7 @@ public class GameService : MonoBehaviour
         if (VerifyDeath(playerPosition))
         {
             OnPlayerDied?.Invoke();
-            OnGameEnded?.Invoke("Player died");
+            OnGameEnded?.Invoke("PlayerDieText");
         }
     }
 

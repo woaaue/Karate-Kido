@@ -31,7 +31,7 @@ public sealed class PopupService : MonoBehaviour
 
         _popupController.ShowPopup(new EndGamePopupSettings
         {
-            InfoText = message,
+            LocalizationKey = message,
         });
     }
 
