@@ -14,7 +14,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_TableCollectionName: StringTextLocalization
   m_TableCollectionNameGuidString: f22fad5be0bef244b902c34c51debd07
-  m_Entries: []
+  m_Entries:
+  - m_Id: 7878152495104
+    m_Key: ScoreText
+    m_Metadata:
+      m_Items: []
+  - m_Id: 8663108100096
+    m_Key: BestScoreText
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
