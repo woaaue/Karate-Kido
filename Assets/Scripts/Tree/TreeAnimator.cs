@@ -6,14 +6,6 @@ using UnityEngine;
 public sealed class TreeAnimator : MonoBehaviour
 {
     [SerializeField] private SpriteRenderer _spriteRenderer;
-    [SerializeField] private float fistPathY;
-    [SerializeField] private float fistPathX;
-    [SerializeField] private float secondPathY;
-    [SerializeField] private float secondPathX;
-    [SerializeField] private float thirdPathY;
-    [SerializeField] private float thirdPathX;
-    [SerializeField] private float fouthPathY;
-    [SerializeField] private float fouthPathX;
 
     public event Action OnAnimationCompleted;
 
@@ -26,10 +18,10 @@ public sealed class TreeAnimator : MonoBehaviour
     {
         Vector3[] path = new Vector3[5];
         path[0] = transform.position;
-        path[1] = new Vector3(transform.position.x + (-direction * fistPathX), transform.position.y + fistPathY, transform.position.z);
-        path[2] = new Vector3(transform.position.x + (-direction * secondPathX), transform.position.y - secondPathY, transform.position.z);
-        path[3] = new Vector3(transform.position.x + (-direction * thirdPathX), transform.position.y - thirdPathY, transform.position.z);
-        path[4] = new Vector3(transform.position.x + (-direction * fouthPathX), transform.position.y - fouthPathY, transform.position.z);
+        path[1] = new Vector3(transform.position.x + (-direction * 1), transform.position.y + 0, transform.position.z);
+        path[2] = new Vector3(transform.position.x + (-direction * 1.7f), transform.position.y - 0.5f, transform.position.z);
+        path[3] = new Vector3(transform.position.x + (-direction * 2f), transform.position.y - 1f, transform.position.z);
+        path[4] = new Vector3(transform.position.x + (-direction * 2.2f), transform.position.y - 2.2f, transform.position.z);
 
         Sequence sequence = DOTween.Sequence();
 
