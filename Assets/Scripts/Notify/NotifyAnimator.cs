@@ -11,7 +11,7 @@ public sealed class NotifyAnimator : MonoBehaviour
         Sequence sequence = DOTween.Sequence();
 
         sequence
-            .Append(transform.DOLocalMove(new Vector3(0, 400, 0), 1f))
+            .Append(transform.DOLocalMove(new Vector3(0, 300, 0), 1f))
             .Join(_canvasGroup.DOFade(1, 1f))
             .OnKill(() =>
             {
