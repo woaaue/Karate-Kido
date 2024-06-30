@@ -6,7 +6,7 @@ public sealed class LevelSystemService : MonoBehaviour
 {
     [SerializeField] private int _countAccrualsExperience;
 
-    public event Action OnLevelChange;
+    public event Action OnLevelChanged;
     public event Action OnCurrentExperienceChanged;
 
     private GameService _gameService;
@@ -32,6 +32,7 @@ public sealed class LevelSystemService : MonoBehaviour
         _levelSystem.OnLevelUp -= ChangeLevel;
 
         SaveData();
+        Storage.DeleteAllJsonFiles();
     }
 
     [Inject]
@@ -46,13 +47,18 @@ public sealed class LevelSystemService : MonoBehaviour
         return _levelSystem.GetData();
     }
 
+    public InfoData GetInfo() 
+    {
+        return _levelSystem.GetInfo();
+    }
+
     private void AddValue()
     {
         _levelSystem.AddValue(_countAccrualsExperience);
         OnCurrentExperienceChanged?.Invoke();
     }
 
-    private void ChangeLevel() => OnLevelChange?.Invoke();
+    private void ChangeLevel() => OnLevelChanged?.Invoke();
     private void SaveData() => Storage.Save(_levelSystem.GetData(), "levelData.json");
     private void LoadData() => _levelSystem.SetLevelData(Storage.Load<LevelData>("levelData.json"));
 }

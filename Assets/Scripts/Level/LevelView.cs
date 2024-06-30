@@ -10,7 +10,7 @@ public sealed class LevelView : MonoBehaviour
 
     private void Start()
     {
-        _levelService.OnLevelChange += EditView;
+        _levelService.OnLevelChanged += EditView;
         _levelService.OnCurrentExperienceChanged += EditView;
 
         EditView();

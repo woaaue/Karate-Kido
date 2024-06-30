@@ -1,5 +1,13 @@
 using System;
-using UnityEngine.Experimental.Rendering;
+using UnityEditorInternal;
+
+public class InfoData
+{
+    public int CurrentLevel;
+    public int PreviousLevel;
+    public float CurrentCoefficient;
+    public float PreviousCoefficient;
+}
 
 [Serializable]
 public class LevelData
@@ -17,6 +25,17 @@ public sealed class LevelSystem
     private int _currentLevel = 1;
     private float _coefficient = 1f;
     private int _currentExperience = 0;
+
+    public InfoData GetInfo()
+    {
+        return new InfoData
+        {
+            CurrentLevel = _currentLevel,
+            PreviousLevel = GetExperienceNextLevel(_currentLevel - 1).Number,
+            CurrentCoefficient = _coefficient,
+            PreviousCoefficient = GetExperienceNextLevel(_currentLevel - 1).Coefficient,
+        };
+    }
 
     public LevelData GetData()
     {

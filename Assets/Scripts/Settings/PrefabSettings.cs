@@ -7,6 +7,7 @@ using System.Collections.Generic;
 public sealed class PrefabSettings : ScriptableObject
 {
     [SerializeField] List<PopupBase> _popups;
+    [SerializeField] List<NotifyBase> _notifications;
 
     public Popup<T> GetPopup<T>() where T : PopupBaseSettings
     {
@@ -17,6 +18,19 @@ public sealed class PrefabSettings : ScriptableObject
         catch (Exception e) 
         {
             Debug.LogError($"There is no popup with these settings {typeof(T)}");
+            throw;
+        }
+    }
+
+    public Notify<T> GetNotify<T>() where T : NotifyBaseSettings
+    {
+        try
+        {
+            return (Notify<T>)_notifications.First(x => x is Notify<T>);
+        }
+        catch (Exception e)
+        {
+            Debug.LogError($"There is no notify with these settings {typeof(T)}");
             throw;
         }
     }
