@@ -34,6 +34,10 @@ MonoBehaviour:
     m_Localized: You're dead
     m_Metadata:
       m_Items: []
+  - m_Id: 1592720287801344
+    m_Localized: New level!
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []

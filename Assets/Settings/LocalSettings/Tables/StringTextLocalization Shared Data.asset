@@ -31,6 +31,10 @@ MonoBehaviour:
     m_Key: PlayerDieText
     m_Metadata:
       m_Items: []
+  - m_Id: 1592720287801344
+    m_Key: NewLevelText
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
