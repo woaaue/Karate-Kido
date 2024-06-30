@@ -32,7 +32,6 @@ public sealed class LevelSystemService : MonoBehaviour
         _levelSystem.OnLevelUp -= ChangeLevel;
 
         SaveData();
-        Storage.DeleteAllJsonFiles();
     }
 
     [Inject]
