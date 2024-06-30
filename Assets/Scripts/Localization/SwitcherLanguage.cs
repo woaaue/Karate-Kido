@@ -2,7 +2,6 @@ using System;
 using UnityEngine;
 using JetBrains.Annotations;
 using UnityEngine.Localization.Settings;
-using UnityEngine.ResourceManagement.AsyncOperations;
 
 [Serializable]
 public sealed class Language
@@ -12,23 +11,19 @@ public sealed class Language
 
 public sealed class SwitcherLanguage : MonoBehaviour
 {
+    public event Action OnLanguageChanged;
+
     private int _currentLocalIndex = 0;
 
     private void Start() => LoadSelectLanguage();
 
     [UsedImplicitly]
-    public void SwitchLocale() => InitializeLocalization();
+    public void SwitchLocale() => InitializeLocalizationAsync();
 
-    private void InitializeLocalization()
+    private async void InitializeLocalizationAsync()
     {
-        AsyncOperationHandle initializeOperation = LocalizationSettings.InitializationOperation;
-        initializeOperation.Completed += LocalizationInitialized;
-    }
-
-    private void LocalizationInitialized(AsyncOperationHandle handle)
-    {
-        if (handle.Status == AsyncOperationStatus.Succeeded)
-            SetLocale();
+        await LocalizationSettings.InitializationOperation.Task;
+        SetLocale();
     }
 
     private void SetLocale()
@@ -41,6 +36,7 @@ public sealed class SwitcherLanguage : MonoBehaviour
         _currentLocalIndex = (_currentLocalIndex + 1) % locales.Count;
         LocalizationSettings.SelectedLocale = locales[_currentLocalIndex];
 
+        OnLanguageChanged?.Invoke();
         SaveSelectLanguage();
     }
 
@@ -69,6 +65,7 @@ public sealed class SwitcherLanguage : MonoBehaviour
         else
             _currentLocalIndex = GetCurrentIndexLocale();
 
+        OnLanguageChanged?.Invoke();
         LocalizationSettings.SelectedLocale = LocalizationSettings.AvailableLocales.Locales[_currentLocalIndex];
     }
 
