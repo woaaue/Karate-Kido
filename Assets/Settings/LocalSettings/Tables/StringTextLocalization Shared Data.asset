@@ -35,6 +35,10 @@ MonoBehaviour:
     m_Key: NewLevelText
     m_Metadata:
       m_Items: []
+  - m_Id: 1611984755433472
+    m_Key: NewModifierText
+    m_Metadata:
+      m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
