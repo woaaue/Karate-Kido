@@ -8,6 +8,7 @@ public sealed class ScoreService : MonoBehaviour
 
     public event Action OnScoreChanged;
     public event Action OnScoreReseted;
+    public event Action<int> OnScoreAdded;
 
     private Score _score;
     private GameService _gameService;
@@ -68,6 +69,7 @@ public sealed class ScoreService : MonoBehaviour
         float coefficient = _levelService.GetData().Coefficient;
         var accrualsScore = Convert.ToInt32(_countAccrualsScore * coefficient);
 
+        OnScoreAdded?.Invoke(accrualsScore);
         _score.AddValue(accrualsScore);
         OnScoreChanged?.Invoke();
     }
