@@ -9,7 +9,7 @@ public sealed class LocalizeStringUI : MonoBehaviour
     [SerializeField] private string _key;
 
     private TextMeshProUGUI _text;
-    [Inject] private SwitcherLanguage _language;
+    private SwitcherLanguage _language;
 
     private void Awake()
     {
@@ -26,6 +26,9 @@ public sealed class LocalizeStringUI : MonoBehaviour
     }
 
     private void OnDisable() => _language.OnLanguageChanged -= SetValue;
+
+    [Inject]
+    public void Construct(SwitcherLanguage language) => _language = language;
 
     private async void SetValue()
     {

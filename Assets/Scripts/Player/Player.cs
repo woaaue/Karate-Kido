@@ -10,7 +10,7 @@ public sealed class Player : MonoBehaviour
 
     public event Action<Vector2> OnPlayerMoved;
 
-    [Inject]private GameService _gameService;
+    private GameService _gameService;
 
     private void Start()
     {
@@ -25,6 +25,9 @@ public sealed class Player : MonoBehaviour
         _gameService.OnPlayerHited -= Hit;
         //_gameService.OnPlayerDied -=
     }
+
+    [Inject]
+    public void Construct(GameService gameService) => _gameService = gameService;
 
     private void Hit() => _animator.PlayAttack();
 

@@ -13,8 +13,8 @@ public sealed class TimerService : MonoBehaviour
     public event Action<float> OnTimerValueChanged;
 
     private bool _isActive;
+    private GameService _gameService;
     private CountdownTimer _countdownTimer;
-    [Inject] private GameService _gameService;
 
     private void Start()
     {
@@ -29,6 +29,8 @@ public sealed class TimerService : MonoBehaviour
             _countdownTimer.StartTimer(deltaTime);
         }
     }
+
+    public void Construct(GameService gameService) => _gameService = gameService;
 
     public void StartTimer()
     {
