@@ -30,6 +30,7 @@ public sealed class TimerService : MonoBehaviour
         }
     }
 
+    [Inject]
     public void Construct(GameService gameService) => _gameService = gameService;
 
     public void StartTimer()
